@@ -34,4 +34,18 @@
         return $tempAuto;
     }
 
+    function cargarManualmente($cantAniosManual, $anioInicio){
+        $temperaturas= [];
+        $tempIngresada = 0;
+        for ($i = 0; $i < $cantAniosManual +1; $i++){
+            for ($j = 0; $j < 12; $j++){
+                echo "Ingrese la temperatura para el año ". $anioInicio++ . " mes ". $j++;
+                $tempIngresada = trim(fgets(STDIN));
+                $temperaturas[$j] = $tempIngresada;
+            }
+        }
+        
+        return $temperaturas;
+    }
+        
 ?>
