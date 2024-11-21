@@ -1,10 +1,34 @@
 <?php
 //TRABAJO PRÁCTICO FINAL - INTRODUCCIÓN A LA PROGRAMACIÓN
+//Integrantes:
+//  Abril Gavilan FAI-5163
+//  Bruno Carrera FAI-4912
 
-/**Integrantes:
- * Abril Gavilán FAI-5163
- * Bruno Carrera FAI-4912
- */
+    echo "Ingrese el numero de lo que desea realizar: ";
+    echo "\n";
+    echo "  1) Realizar una carga automatica de la matriz de temperaturas.";
+    echo "\n";
+    echo "  2) Realizar una carga manual de la matriz de temperaturas.";
+    echo "\n";
+    echo "  3) Mostrar el contenido de la matriz por filas y columnas.";
+    echo "\n";
+    echo "  4) Dado un año y un mes, devolver el valor de temperatura correspondiente.";
+    echo "\n";
+    echo "  5) Dado un año, se muestran las temperaturas de los 12 meses.";
+    echo "\n";
+    echo "  6) Dado un mes, se hace un promedio con las temperaturas de todos los años.";
+    echo "\n";
+    echo "  7) Mostrar las temperaturas minimas y maximas de cada año.";
+    echo "\n";
+    echo "  8) Mostrar matrices: ";
+    echo "\n";
+    echo "      8.1) Escribir 'completa' para visualizar la matriz completa de las temperaturas.";
+    echo "\n";    
+    echo "      8.2) Escribir 'primavera' para visualizar la matriz de las temperaturas de primavera(oct-nov-dic) de todos los años.";
+    echo "\n";
+    echo "      8.2) Escribir 'invierno' para visualizar la matriz de las temperaturas de invierno(jul-ago-sep) de los ultimos 5 años.";
+    echo "\n";
+    $opcion = trim(fgets(STDIN));
 
     function cargaAutomatica (){
         $tempAuto = [];
@@ -43,8 +67,7 @@
                 $tempIngresada = trim(fgets(STDIN));
                 $temperaturas[$j] = $tempIngresada;
             }
-        }
-        
+        }    
         return $temperaturas;
     }
         
