@@ -71,4 +71,22 @@
         return $temperaturas;
     }
         
+    function seleccionarOpcion(){
+        //INT $opcion
+            echo "\n Menú de opciones: 
+            1) Realizar una carga automática de la matriz de temperaturas con los datos propuestos por la cátedra 
+            2) Realizar una carga manual de la matriz de temperaturas
+            3) Mostrar contenido de la matriz por filas y columnas
+            4) Mostrar dado un año y un mes, el valor de la temperatura correspondiente
+            5) Mostrar para un determinado año, las temperaturas de todos los meses 
+            6) Mostrar para un mes determinado, las temperaturas de todos los años y el promedio
+            7) Hallar las temperaturas máximas y mínimas, indicando su respectivo mes y año
+            8) Mostrar los datos de primavera de todos los años
+            9) Mostrar los datos de los últimos 5 años de invierno
+            10) Mostrar los datos de la opcion 1 o 2, los datos de la opcion 8 y los datos de la opción 9
+            11) salir \n";
+            $opcion=intval(trim(fgets(STDIN)));
+        return $opcion;
+    }
+    
 ?>
