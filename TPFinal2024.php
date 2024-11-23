@@ -4,32 +4,8 @@
 //  Abril Gavilan FAI-5163
 //  Bruno Carrera FAI-4912
 
-    echo "Ingrese el numero de lo que desea realizar: ";
-    echo "\n";
-    echo "  1) Realizar una carga automatica de la matriz de temperaturas.";
-    echo "\n";
-    echo "  2) Realizar una carga manual de la matriz de temperaturas.";
-    echo "\n";
-    echo "  3) Mostrar el contenido de la matriz por filas y columnas.";
-    echo "\n";
-    echo "  4) Dado un año y un mes, devolver el valor de temperatura correspondiente.";
-    echo "\n";
-    echo "  5) Dado un año, se muestran las temperaturas de los 12 meses.";
-    echo "\n";
-    echo "  6) Dado un mes, se hace un promedio con las temperaturas de todos los años.";
-    echo "\n";
-    echo "  7) Mostrar las temperaturas minimas y maximas de cada año.";
-    echo "\n";
-    echo "  8) Mostrar matrices: ";
-    echo "\n";
-    echo "      8.1) Escribir 'completa' para visualizar la matriz completa de las temperaturas.";
-    echo "\n";    
-    echo "      8.2) Escribir 'primavera' para visualizar la matriz de las temperaturas de primavera(oct-nov-dic) de todos los años.";
-    echo "\n";
-    echo "      8.2) Escribir 'invierno' para visualizar la matriz de las temperaturas de invierno(jul-ago-sep) de los ultimos 5 años.";
-    echo "\n";
-    $opcion = trim(fgets(STDIN));
 
+    //FUNCION PARA CARGA AUTOMÁTICA
     function cargaAutomatica (){
         $tempAuto = [];
 
@@ -44,32 +20,47 @@
         $anio2022 = ["enero" => 31, "febrero" => 29, "marzo" => 27, "abril" => 21, "mayo" => 17, "junio" => 12, "julio" => 11, "agosto" => 15, "septiembre" => 18, "octubre" => 22, "noviembre" => 26, "diciembre" => 30];
         $anio2023 = ["enero" => 32, "febrero" => 30, "marzo" => 27, "abril" => 20, "mayo" => 16, "junio" => 13, "julio" => 13, "agosto" => 15, "septiembre" => 19, "octubre" => 23, "noviembre" => 28, "diciembre" => 31];
     
-        $tempAuto[0]=$anio2014;
-        $tempAuto[1]=$anio2015;
-        $tempAuto[2]=$anio2016;
-        $tempAuto[3]=$anio2017;
-        $tempAuto[4]=$anio2018;
-        $tempAuto[5]=$anio2019;
-        $tempAuto[6]=$anio2020;
-        $tempAuto[7]=$anio2021;
-        $tempAuto[8]=$anio2022;
-        $tempAuto[9]=$anio2023;
+        $tempAuto[2014]=$anio2014;
+        $tempAuto[2015]=$anio2015;
+        $tempAuto[2016]=$anio2016;
+        $tempAuto[2017]=$anio2017;
+        $tempAuto[2018]=$anio2018;
+        $tempAuto[2019]=$anio2019;
+        $tempAuto[2020]=$anio2020;
+        $tempAuto[2021]=$anio2021;
+        $tempAuto[2022]=$anio2022;
+        $tempAuto[2023]=$anio2023;
 
         return $tempAuto;
     }
 
-    function cargarManualmente($cantAniosManual, $anioInicio){
-        $temperaturas= [];
-        $tempIngresada = 0;
-        for ($i = 0; $i < $cantAniosManual +1; $i++){
-            for ($j = 0; $j < 12; $j++){
-                echo "Ingrese la temperatura para el año ". $anioInicio++ . " mes ". $j++;
-                $tempIngresada = trim(fgets(STDIN));
-                $temperaturas[$j] = $tempIngresada;
+    // FUNCIÓN PARA CARGA MANUAL
+    function cargaManualmente() {
+        $matrizManual=[];
+        echo "Ingrese los valores de temperatura manualmente:\n";
+        for ($año = 0; $año < 10; $año++) {
+            $añoActual = 2014 + $año; // Año correspondiente
+            echo "Año $añoActual:\n";
+            for ($mes = 0; $mes < 12; $mes++) {
+                $mesNombre = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                $esValido = false; // Bandera de validación
+                
+                while (!$esValido) {
+                    echo "  Mes {$mesNombre[$mes]}: ";
+                    $valTemperatura = trim(fgets(STDIN));
+                    if (is_numeric($valTemperatura)) {
+                        $matrizManual[$año][$mes] = (int)$valTemperatura;
+                        $esValido = true; // Se cambia la bandera si el valor es válido
+                    } else {
+                        echo "  Por favor, ingrese un valor numérico válido.\n";
+                    }
+                }
             }
-        }    
-        return $temperaturas;
+        }
+        echo "Carga manual completada.\n";
+    return $matrizManual;
     }
+
         
     function seleccionarOpcion(){
         //INT $opcion
@@ -85,8 +76,36 @@
             9) Mostrar los datos de los últimos 5 años de invierno
             10) Mostrar los datos de la opcion 1 o 2, los datos de la opcion 8 y los datos de la opción 9
             11) salir \n";
+            echo"\n";
+            echo"Seleccione alguna opción: ";
             $opcion=intval(trim(fgets(STDIN)));
         return $opcion;
     }
     
+//ALGORITMO PRINCIPAL
+
+/** 
+*ARRAY $llamaMatrizAutomatica, $cargaMatrizManual
+*INT $opcion
+*/
+
+
+//Inicialización de variables:
+$llamaMatrizAutomatica=cargaAutomatica();
+
+do {
+    $opcion = seleccionarOpcion();
+    switch ($opcion) {
+        case 1: 
+            //Realizar una carga automática de la matriz de temperaturas
+            echo"La matriz de temperaturas es la siguiente:\n";
+            print_r($llamaMatrizAutomatica);
+            break;
+
+        case 2: 
+            //Jugar al wordix con una palabra aleatoria
+            $cargaMatrizManual=cargaManualmente();
+            break;
+        }
+    }while ($opcion!=11);    
 ?>
