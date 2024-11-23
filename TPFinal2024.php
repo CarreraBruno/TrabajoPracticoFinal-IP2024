@@ -103,7 +103,7 @@ do {
             break;
 
         case 2: 
-            //Jugar al wordix con una palabra aleatoria
+            //Realizar una carga manual de la matriz de temperaturas
             $cargaMatrizManual=cargaManualmente();
             break;
         }
