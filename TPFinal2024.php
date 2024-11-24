@@ -36,20 +36,20 @@
 
     // FUNCIÓN PARA CARGA MANUAL
     function cargaManualmente() {
-        $matrizManual=[];
+        $matrizManual = [];
         echo "Ingrese los valores de temperatura manualmente:\n";
         for ($año = 0; $año < 10; $año++) {
             $añoActual = 2014 + $año; // Año correspondiente
             echo "Año $añoActual:\n";
             for ($mes = 0; $mes < 12; $mes++) {
-                $mesNombre = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                $mesNombre = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
                 $esValido = false; // Bandera de validación
                 
                 while (!$esValido) {
                     echo "  Mes {$mesNombre[$mes]}: ";
                     $valTemperatura = trim(fgets(STDIN));
                     if (is_numeric($valTemperatura)) {
-                        $matrizManual[$año][$mes] = (int)$valTemperatura;
+                        $matrizManual[$añoActual][$mesNombre[$mes]] = (int)$valTemperatura;
                         $esValido = true; // Se cambia la bandera si el valor es válido
                     } else {
                         echo "  Por favor, ingrese un valor numérico válido.\n";
@@ -58,10 +58,35 @@
             }
         }
         echo "Carga manual completada.\n";
-    return $matrizManual;
+        return $matrizManual;
     }
 
+    //FUNCIÓN PARA MOSTRAR EL CONTENIDO DE LA MATRIZ POR FILAS Y COLUMNAS
+    function mostrarMatriz($matrizT) {
+        $mesNombre = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
         
+        // Mostrar encabezado con los nombres de los meses
+        echo str_pad("Año", 6); // Espacio para el título de las filas
+        foreach ($mesNombre as $mes) {
+            echo str_pad($mes, 10); // Ajustar ancho de columna para cada mes
+        }
+        echo "\n";
+        echo str_repeat("-", 126) . "\n"; // Línea separadora
+    
+        // Mostrar los datos de la matriz
+        foreach ($matrizT as $anio => $meses) { // Iterar por años y meses
+            echo str_pad($anio, 6); // Mostrar el año
+            foreach ($mesNombre as $mes) {
+                // Validar si existe el mes en el array
+                if (array_key_exists(strtolower($mes), $meses)) {
+                    echo str_pad($meses[strtolower($mes)], 10); // Mostrar la temperatura
+                } else {
+                    echo str_pad("-", 10); // Mostrar guion si falta el dato
+                }
+            }
+            echo "\n";
+        }
+    }
     function seleccionarOpcion(){
         //INT $opcion
             echo "\n Menú de opciones: 
@@ -87,11 +112,14 @@
 /** 
 *ARRAY $llamaMatrizAutomatica, $cargaMatrizManual
 *INT $opcion
+*BOOLEAN $opcion1Seleccionada, $opcion2Seleccionada
 */
 
 
 //Inicialización de variables:
 $llamaMatrizAutomatica=cargaAutomatica();
+$opcion1Seleccionada = false;
+$opcion2Seleccionada = false;
 
 do {
     $opcion = seleccionarOpcion();
@@ -100,12 +128,24 @@ do {
             //Realizar una carga automática de la matriz de temperaturas
             echo"La matriz de temperaturas es la siguiente:\n";
             print_r($llamaMatrizAutomatica);
+            $opcion1Seleccionada = true;
             break;
 
         case 2: 
             //Realizar una carga manual de la matriz de temperaturas
             $cargaMatrizManual=cargaManualmente();
+            $opcion2Seleccionada = true;
             break;
-        }
+
+        case 3:
+            //Muestra el contenido de la matriz por filas y columnas
+            if ($opcion1Seleccionada == true){
+                mostrarMatriz($llamaMatrizAutomatica);
+            }elseif($opcion2Seleccionada == true){
+                mostrarMatriz($cargaMatrizManual);
+            }
+
+
+            }
     }while ($opcion!=11);    
 ?>
