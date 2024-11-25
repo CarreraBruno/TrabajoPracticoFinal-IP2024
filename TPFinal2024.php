@@ -146,6 +146,28 @@
     }
 
     // h) Crear y mostrar un arreglo bidimensional con los datos de primavera (oct-nov-dic) de todos los años.
+    function mostrarPrimavera($temperaturas) {
+        $mesesPrimavera = ["octubre", "noviembre", "diciembre"];
+        $primavera = [];
+    
+        foreach ($temperaturas as $anio => $meses) {
+            foreach ($mesesPrimavera as $mes) {
+                if (isset($meses[$mes])) {
+                    $primavera[$anio][$mes] = $meses[$mes];
+                }
+            }
+        }
+    
+        echo "Temperaturas de primavera (octubre, noviembre, diciembre):\n";
+        foreach ($primavera as $anio => $meses) {
+            echo "Año $anio:\n";
+            foreach ($meses as $mes => $temperatura) {
+                echo "  $mes: $temperatura\n";
+            }
+        }
+    
+        return $primavera;
+    }
 
     // i) Crear y mostrar un arreglo bidimensional con los datos de los últimos 5 años de invierno (jul-ago-sep).
 
@@ -198,8 +220,77 @@
                     mostrarMatriz($llamaMatrizAutomatica);
                 }elseif($opcion2Seleccionada == true){
                     mostrarMatriz($cargaMatrizManual);
+                }else{
+                    echo"Primero debe cargar una matriz";
                 }
+                break;
 
+            case 4:
+                //Muestra, dado un año y un mes, el valor de temperatura correspondiente
+                echo "Ingrese el año: ";
+                $anio = intval(trim(fgets(STDIN)));
+                
+                echo "Ingrese el mes: ";
+                $mes = strtolower(trim(fgets(STDIN))); // Convertir a minúsculas para consistencia
+                
+                if ($opcion1Seleccionada) {
+                    mostrarTemperaturaSegunAnioMes($llamaMatrizAutomatica, $anio, $mes);
+                } elseif ($opcion2Seleccionada) {
+                    mostrarTemperaturaSegunAnioMes($cargaMatrizManual, $anio, $mes);
+                } else {
+                    echo "Primero debe cargar la matriz (opción 1 o 2).\n";
+                }
+                break;
+            
+            case 5:
+                //Muestra para un determinado año, las temperaturas de todos los meses
+                echo "Ingrese el año: ";
+                $anio = intval(trim(fgets(STDIN)));
+                
+                if ($opcion1Seleccionada) {
+                    mostrarTodasLasTemperaturasAnio($llamaMatrizAutomatica, $anio);
+                } elseif ($opcion2Seleccionada) {
+                    mostrarTodasLasTemperaturasAnio($cargaMatrizManual, $anio);
+                } else {
+                    echo "Primero debe cargar la matriz (opción 1 o 2).\n";
+                }
+                break;
+            
+            case 6:
+                //Muestra para un mes determinado, las temperaturas de todos los años y el promedio
+                echo "Ingrese el mes: ";
+                $mes = strtolower(trim(fgets(STDIN))); // Convertir a minúsculas para consistencia
+                
+                if ($opcion1Seleccionada) {
+                    mostrarTemperaturasPorMes($llamaMatrizAutomatica, $mes);
+                } elseif ($opcion2Seleccionada) {
+                    mostrarTemperaturasPorMes($cargaMatrizManual, $mes);
+                } else {
+                    echo "Primero debe cargar la matriz (opción 1 o 2).\n";
+                }
+                break;
+            
+            case 7:
+                //Halla las temperaturas máximas y mínimas, indicando año y mes a los que corresponden. Si el máximo o mínimo se repite, muestra el primero encontrado
+                if ($opcion1Seleccionada) {
+                    tempsMaxYMin($llamaMatrizAutomatica);
+                } elseif ($opcion2Seleccionada) {
+                    tempsMaxYMin($cargaMatrizManual);
+                } else {
+                    echo "Primero debe cargar la matriz (opción 1 o 2).\n";
+                }
+                break;    
+
+            case 8:
+                //Muestra un arreglo bidimensional con los datos de primavera (oct-nov-dic) de todos los años
+                if ($opcion1Seleccionada) {
+                    mostrarPrimavera($llamaMatrizAutomatica);
+                } elseif ($opcion2Seleccionada) {
+                    mostrarPrimavera($cargaMatrizManual);
+                } else {
+                    echo "Primero debe cargar la matriz (opción 1 o 2).\n";
+                }
+                break;
 
                 }
         }while ($opcion!=11);    
