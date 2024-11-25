@@ -117,8 +117,40 @@
         }
     }
 
+    // g) Hallar las temperaturas máximas y mínimas, indicando año y mes a los que corresponden. Si el máximo o mínimo se repite, mostrar el primero encontrado.
+    function tempsMaxYMin($temperaturas) {
+        $tempMax = 0;
+        $tempMin = 1000000;
+        $anioMax = 0;
+        $anioMin = 0;
+        $mesMax = "";
+        $mesMin = "";
 
-        function seleccionarOpcion(){
+        foreach ($temperaturas as $anio => $tempsMes) {
+            foreach ($tempsMes as $mes => $temperatura) {
+                if ($temperatura > $tempMax) {
+                    $tempMax = $temperatura;
+                    $anioMax = $anio;
+                    $mesMax = $mes;
+                }
+                if ($temperatura < $tempMin) {
+                    $tempMin = $temperatura;
+                    $anioMin = $anio;
+                    $mesMin = $mes;
+                }
+            }
+        }
+        echo "Las temperaturas maximas y minimas (desde 2014 a 2023) fueron: \n";
+        echo "  Temperatura máxima: $tempMax en el año $anioMax en el mes $mesMax\n";
+        echo "  Temperatura mínima: $tempMin en el año $anioMin en el mes $mesMin\n";
+    }
+
+    // h) Crear y mostrar un arreglo bidimensional con los datos de primavera (oct-nov-dic) de todos los años.
+
+    // i) Crear y mostrar un arreglo bidimensional con los datos de los últimos 5 años de invierno (jul-ago-sep).
+
+
+    function seleccionarOpcion(){
         //INT $opcion
             echo "\n Menú de opciones: 
             1) Realizar una carga automática de la matriz de temperaturas con los datos propuestos por la cátedra 
@@ -138,37 +170,38 @@
         return $opcion;
     }
 
-//Inicialización de variables:
-$llamaMatrizAutomatica=cargaAutomatica();
-$opcion1Seleccionada = false;
-$opcion2Seleccionada = false;
+    
+    //Inicialización de variables:
+    $llamaMatrizAutomatica=cargaAutomatica();
+    $opcion1Seleccionada = false;
+    $opcion2Seleccionada = false;
 
-do {
-    $opcion = seleccionarOpcion();
-    switch ($opcion) {
-        case 1: 
-            //Realizar una carga automática de la matriz de temperaturas
-            echo"La matriz de temperaturas es la siguiente:\n";
-            print_r($llamaMatrizAutomatica);
-            $opcion1Seleccionada = true;
-            break;
+    do {
+        $opcion = seleccionarOpcion();
+        switch ($opcion) {
+            case 1: 
+                //Realizar una carga automática de la matriz de temperaturas
+                echo"La matriz de temperaturas es la siguiente:\n";
+                print_r($llamaMatrizAutomatica);
+                $opcion1Seleccionada = true;
+                break;
 
-        case 2: 
-            //Realizar una carga manual de la matriz de temperaturas
-            $cargaMatrizManual=cargaManual();
-            $opcion2Seleccionada = true;
-            break;
+            case 2: 
+                //Realizar una carga manual de la matriz de temperaturas
+                $cargaMatrizManual=cargaManual();
+                $opcion2Seleccionada = true;
+                break;
 
-        case 3:
-            //Muestra el contenido de la matriz por filas y columnas
-            if ($opcion1Seleccionada == true){
-                mostrarMatriz($llamaMatrizAutomatica);
-            }elseif($opcion2Seleccionada == true){
-                mostrarMatriz($cargaMatrizManual);
-            }
+            case 3:
+                //Muestra el contenido de la matriz por filas y columnas
+                if ($opcion1Seleccionada == true){
+                    mostrarMatriz($llamaMatrizAutomatica);
+                }elseif($opcion2Seleccionada == true){
+                    mostrarMatriz($cargaMatrizManual);
+                }
 
 
-            }
-    }while ($opcion!=11);    
+                }
+        }while ($opcion!=11);    
 
     ?>

@@ -29,31 +29,4 @@
 
     }
 
-    
-    function tempsMaxYMin($temperaturas) {
-        $tempMax = 0;
-        $tempMin = 1000000;
-        $anioMax = 0;
-        $anioMin = 0;
-        $mesMax = "";
-        $mesMin = "";
-
-        foreach ($temperaturas as $anio => $tempsMes) {
-            foreach ($tempsMes as $mes => $temperatura) {
-                if ($temperatura > $tempMax) {
-                    $tempMax = $temperatura;
-                    $anioMax = $anio;
-                    $mesMax = $mes;
-                }
-                if ($temperatura < $tempMin) {
-                    $tempMin = $temperatura;
-                    $anioMin = $anio;
-                    $mesMin = $mes;
-                }
-            }
-        }
-
-        echo "Temperatura máxima: $tempMax (Año: $anioMax, Mes: $mesMax)\n";
-        echo "Temperatura mínima: $tempMin (Año: $anioMin, Mes: $mesMin)\n";
-    }
 ?>
