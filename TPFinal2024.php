@@ -4,23 +4,6 @@
 //  Abril Gavilan FAI-5163
 //  Bruno Carrera FAI-4912
 
-    echo "Ingrese el numero de lo que desea realizar: \n";
-    echo "  1) Realizar una carga automatica de la matriz de temperaturas.\n";
-    echo "  2) Realizar una carga manual de la matriz de temperaturas.\n";
-    echo "  3) Mostrar el contenido de la matriz por filas y columnas.\n";
-    echo "  4) Dado un año y un mes, devolver el valor de temperatura correspondiente.\n";
-    echo "  5) Dado un año, se muestran las temperaturas de los 12 meses.\n";
-    echo "  6) Dado un mes, se hace un promedio con las temperaturas de todos los años.\n";
-    echo "  7) Mostrar las temperaturas minimas y maximas de cada año.\n";
-    echo "  8) Mostrar matrices: \n";
-    echo "      8.1) Escribir 'completa' para visualizar la matriz completa de las temperaturas.\n";
-    echo "      8.2) Escribir 'primavera' para visualizar la matriz de las temperaturas de primavera(oct-nov-dic) de todos los años.\n";
-    echo "      8.3) Escribir 'invierno' para visualizar la matriz de las temperaturas de invierno(jul-ago-sep) de los ultimos 5 años.\n";
-    echo "  0) Salir.\n";
-
-    $opcion = trim(fgets(STDIN));
-
-    // a) Realizar una carga automática de la matriz de temperaturas con los datos propuestos por la cátedra.
 
     function cargaAutomatica (){
         $tempAuto = [];
@@ -134,4 +117,58 @@
         }
     }
 
-?>
+
+        function seleccionarOpcion(){
+        //INT $opcion
+            echo "\n Menú de opciones: 
+            1) Realizar una carga automática de la matriz de temperaturas con los datos propuestos por la cátedra 
+            2) Realizar una carga manual de la matriz de temperaturas
+            3) Mostrar contenido de la matriz por filas y columnas
+            4) Mostrar dado un año y un mes, el valor de la temperatura correspondiente
+            5) Mostrar para un determinado año, las temperaturas de todos los meses 
+            6) Mostrar para un mes determinado, las temperaturas de todos los años y el promedio
+            7) Hallar las temperaturas máximas y mínimas, indicando su respectivo mes y año
+            8) Mostrar los datos de primavera de todos los años
+            9) Mostrar los datos de los últimos 5 años de invierno
+            10) Mostrar los datos de la opcion 1 o 2, los datos de la opcion 8 y los datos de la opción 9
+            11) salir \n";
+            echo"\n";
+            echo"Seleccione alguna opción: ";
+            $opcion=intval(trim(fgets(STDIN)));
+        return $opcion;
+    }
+
+//Inicialización de variables:
+$llamaMatrizAutomatica=cargaAutomatica();
+$opcion1Seleccionada = false;
+$opcion2Seleccionada = false;
+
+do {
+    $opcion = seleccionarOpcion();
+    switch ($opcion) {
+        case 1: 
+            //Realizar una carga automática de la matriz de temperaturas
+            echo"La matriz de temperaturas es la siguiente:\n";
+            print_r($llamaMatrizAutomatica);
+            $opcion1Seleccionada = true;
+            break;
+
+        case 2: 
+            //Realizar una carga manual de la matriz de temperaturas
+            $cargaMatrizManual=cargaManual();
+            $opcion2Seleccionada = true;
+            break;
+
+        case 3:
+            //Muestra el contenido de la matriz por filas y columnas
+            if ($opcion1Seleccionada == true){
+                mostrarMatriz($llamaMatrizAutomatica);
+            }elseif($opcion2Seleccionada == true){
+                mostrarMatriz($cargaMatrizManual);
+            }
+
+
+            }
+    }while ($opcion!=11);    
+
+    ?>
