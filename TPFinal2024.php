@@ -4,6 +4,7 @@
 //  Abril Gavilan FAI-5163
 //  Bruno Carrera FAI-4912
 
+//a)Realizar una carga automática de la matriz de temperaturas con los datos propuestos por la cátedra.
 
     function cargaAutomatica (){
         $tempAuto = [];
@@ -33,7 +34,7 @@
         return $tempAuto;
     }
 
-    // b) Realizar una carga manual de la matriz de temperaturas.
+    //b) Realiza una carga manual de la matriz de temperaturas
 
     function cargaManual() {
         $temperaturas = array();
@@ -52,7 +53,7 @@
         return $temperaturas;
     }
 
-    // c) Mostrar el contenido de la matriz por filas y columnas.
+    //c) Mostrar el contenido de la matriz por filas y columnas.
     function mostrarMatriz($matrizT) {
         $mesNombre = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
@@ -117,7 +118,7 @@
         }
     }
 
-    // g) Hallar las temperaturas máximas y mínimas, indicando año y mes a los que corresponden. Si el máximo o mínimo se repite, mostrar el primero encontrado.
+    //g) Hallar las temperaturas máximas y mínimas, indicando año y mes a los que corresponden. Si el máximo o mínimo se repite, mostrar el primero encontrado.
     function tempsMaxYMin($temperaturas) {
         $tempMax = 0;
         $tempMin = 1000000;
@@ -145,7 +146,7 @@
         echo "  Temperatura mínima: $tempMin en el año $anioMin en el mes $mesMin\n";
     }
 
-    // h) Crear y mostrar un arreglo bidimensional con los datos de primavera (oct-nov-dic) de todos los años.
+    //h) Crear y mostrar un arreglo bidimensional con los datos de primavera (oct-nov-dic) de todos los años
     function mostrarPrimavera($temperaturas) {
         $mesesPrimavera = ["octubre", "noviembre", "diciembre"];
         $primavera = [];
@@ -169,8 +170,51 @@
         return $primavera;
     }
 
-    // i) Crear y mostrar un arreglo bidimensional con los datos de los últimos 5 años de invierno (jul-ago-sep).
+    //i) Crear y mostrar un arreglo bidimensional con los datos de los últimos 5 años de invierno (jul-ago-sep)
+    function mostrarInviernoUltimos5Anios($temperaturas) {
+        $mesesInvierno = ["julio", "agosto", "septiembre"];
+        $aniosInvierno = [2019, 2020, 2021, 2022, 2023];
+        $inviernoDatos = [];
+        
+        foreach ($aniosInvierno as $anio) {
+            if (isset($temperaturas[$anio])) {
+                foreach ($mesesInvierno as $mes) {
+                    if (isset($temperaturas[$anio][$mes])) {
+                        $inviernoDatos[$anio][$mes] = $temperaturas[$anio][$mes];
+                    } else {
+                        $inviernoDatos[$anio][$mes] = "-"; // Si no hay datos, colocamos un guion
+                    }
+                }
+            }
+        }
+        
+        // Mostramos los datos de invierno
+        echo "\nDatos de invierno (julio, agosto, septiembre) para los últimos 5 años:\n";
+        echo str_pad("Año", 6) . str_pad("Julio", 10) . str_pad("Agosto", 10) . str_pad("Septiembre", 12) . "\n";
+        echo str_repeat("-", 40) . "\n";
+        
+        foreach ($inviernoDatos as $anio => $meses) {
+            echo str_pad($anio, 6);
+            foreach ($mesesInvierno as $mes) {
+                echo str_pad($meses[$mes], 10);
+            }
+            echo "\n";
+        }
+    
+        return $inviernoDatos;
+    }
 
+    //j)Crear un arreglo asociativo que contenga en la primera posición con clave “completa” la matriz completa de temperaturas, en la segunda posición con clave “primavera” la matriz creada en el inciso h., y en la tercera posición con clave “invierno” la matriz creada en el inciso i.
+    function crearArregloAsociativo($matrizCompleta, $datosPrimavera, $datosInvierno) {
+        $arregloAsociativo = [
+            "completa" => $matrizCompleta,
+            "primavera" => $datosPrimavera,
+            "invierno" => $datosInvierno
+        ];
+    
+        return $arregloAsociativo;
+    }
+    
 
     function seleccionarOpcion(){
         //INT $opcion
@@ -221,7 +265,7 @@
                 }elseif($opcion2Seleccionada == true){
                     mostrarMatriz($cargaMatrizManual);
                 }else{
-                    echo"Primero debe cargar una matriz";
+                    echo"Primero debe cargar la matriz (opción 1 o 2).\n";
                 }
                 break;
 
@@ -284,15 +328,49 @@
             case 8:
                 //Muestra un arreglo bidimensional con los datos de primavera (oct-nov-dic) de todos los años
                 if ($opcion1Seleccionada) {
-                    mostrarPrimavera($llamaMatrizAutomatica);
+                    $datosPrimavera = mostrarPrimavera($llamaMatrizAutomatica);
                 } elseif ($opcion2Seleccionada) {
-                    mostrarPrimavera($cargaMatrizManual);
+                    $datosPrimavera = mostrarPrimavera($cargaMatrizManual);
                 } else {
                     echo "Primero debe cargar la matriz (opción 1 o 2).\n";
                 }
                 break;
 
+            case 9:
+                //muestra un arreglo bidimensional con los datos de los últimos 5 años de invierno (jul-ago-sep)
+                if ($opcion1Seleccionada) {
+                    $datosInvierno = mostrarInviernoUltimos5Anios($llamaMatrizAutomatica);
+                } elseif ($opcion2Seleccionada) {
+                    $datosInvierno = mostrarInviernoUltimos5Anios($cargaMatrizManual);
+                } else {
+                    echo "Primero debe cargar la matriz (opción 1 o 2).\n";
                 }
+                break;
+                
+            case 10:
+                //Crea un arreglo asociativo que contenga en la primera posición con clave “completa” la matriz completa de temperaturas, en la segunda posición con clave “primavera” la matriz creada en el inciso h., y en la tercera posición con clave “invierno” la matriz creada en el inciso i.
+                if (($opcion1Seleccionada || $opcion2Seleccionada) && isset($datosPrimavera) && isset($datosInvierno)) {
+                    $matrizSeleccionada = $opcion1Seleccionada ? $llamaMatrizAutomatica : $cargaMatrizManual;
+                
+                    // Crear el arreglo asociativo
+                    $arregloAsociativo = crearArregloAsociativo($matrizSeleccionada, $datosPrimavera, $datosInvierno);
+                
+                    // Mostrar el arreglo asociativo
+                    echo "Arreglo Asociativo:\n";
+                    echo "Matriz Completa:\n";
+                    mostrarMatriz($arregloAsociativo["completa"]);
+                    echo "\nDatos de Primavera:\n";
+                    print_r($arregloAsociativo["primavera"]);
+                    echo "\nDatos de Invierno:\n";
+                    print_r($arregloAsociativo["invierno"]);
+                } else {
+                    echo "Debe cargar los datos de primavera (opción 8) e invierno (opción 9) antes de seleccionar esta opción.\n";
+                }
+                break; 
+
+                }
+
+                
         }while ($opcion!=11);    
 
     ?>
