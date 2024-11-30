@@ -36,20 +36,28 @@
 
     //b) Realiza una carga manual de la matriz de temperaturas
     function cargaManual() {
-        $temperaturas = array();
-        $anios = array("2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023");
-        $meses = array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
-
-        foreach ($anios as $anio) {
-            echo "Ingrese la temperatura para el año $anio: \n";
-            foreach ($meses as $mes) {
-                echo "Mes $mes: ";
-                $temperatura = trim(fgets(STDIN));
-                $temperaturas[$anio][$mes] = $temperatura;
+        $matrizManual = [];
+        echo "Ingrese los valores de temperatura manualmente:\n";
+        for ($año = 0; $año < 10; $año++) {
+            $añoActual = 2014 + $año; // Año correspondiente
+            echo "  -> Año $añoActual:\n";
+            for ($mes = 0; $mes < 12; $mes++) {
+                $mesNombre = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+                $esValido = false; // Bandera de validación
+                while (!$esValido) {
+                    echo "      . Mes {$mesNombre[$mes]}: ";
+                    $valTemperatura = trim(fgets(STDIN));
+                    if (is_numeric($valTemperatura)) {
+                        $matrizManual[$añoActual][$mesNombre[$mes]] = (int)$valTemperatura;
+                        $esValido = true; // Se cambia la bandera si el valor es válido
+                    } else {
+                        echo "  Por favor, ingrese un valor numérico válido.\n";
+                    }
+                }
             }
         }
-
-        return $temperaturas;
+        echo "Carga manual completada.\n";
+        return $matrizManual;
     }
 
     //c) Mostrar el contenido de la matriz por filas y columnas.
