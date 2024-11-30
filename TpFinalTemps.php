@@ -221,6 +221,7 @@
     // Funcion para seleccionar opcion en el menu principal
     function seleccionarOpcion(){
         //INT $opcion
+        do{
             echo "\n Menú de opciones: 
             1) Realizar una carga automática de la matriz de temperaturas con los datos propuestos por la cátedra 
             2) Realizar una carga manual de la matriz de temperaturas
@@ -239,6 +240,12 @@
             echo "*************************************************************************************** \n";
             echo"Seleccione alguna opción: ";
             $opcion=intval(trim(fgets(STDIN)));
+
+            if ($opcion < 1 || $opcion > 11) {
+                echo "Opción incorrecta. Vuelva a elegir una opción.\n";
+            }
+
+        } while ($opcion < 1 || $opcion > 11);
         return $opcion;
     }
 //--------------------------------------------------------------------------------------------------------------------------
@@ -279,9 +286,24 @@
                 //Muestra, dado un año y un mes, el valor de temperatura correspondiente
                 echo "Ingrese el año: ";
                 $anio = intval(trim(fgets(STDIN)));
-                
                 echo "Ingrese el mes: ";
                 $mes = strtolower(trim(fgets(STDIN))); // Convertir a minúsculas para consistencia
+                
+                do {
+                    echo "Ingrese el año: ";
+                        $anio = intval(trim(fgets(STDIN)));
+                        if ($anio < 2019 || $anio > 2023) {
+                            echo "Se ingresó un año incorrecto. Vuelva a intentarlo.\n";
+                        }
+                    } while ($anio < 2019 || $anio > 2023);
+                
+                do {
+                    echo "Ingrese el mes: ";
+                    $mes = strtolower(trim(fgets(STDIN))); // Convertir a minúsculas para consistencia
+                    if (!in_array($mes, ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"])) {
+                        echo "Se ingresó un mes incorrecto. Vuelva a intentarlo.\n";
+                    }
+                } while (!in_array($mes, ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]));
                 
                 if ($opcion1Seleccionada) {
                     mostrarTemperaturaSegunAnioMes($llamaMatrizAutomatica, $anio, $mes);
@@ -291,12 +313,20 @@
                     echo "Primero debe cargar la matriz (opción 1 o 2).\n";
                 }
                 break;
-            
+
             case 5:
                 //Muestra para un determinado año, las temperaturas de todos los meses
                 echo "Ingrese el año: ";
                 $anio = intval(trim(fgets(STDIN)));
                 
+                do {
+                echo "Ingrese el año: ";
+                    $anio = intval(trim(fgets(STDIN)));
+                    if ($anio < 2019 || $anio > 2023) {
+                        echo "Se ingresó un año incorrecto. Vuelva a intentarlo.\n";
+                    }
+                } while ($anio < 2019 || $anio > 2023);
+
                 if ($opcion1Seleccionada) {
                     mostrarTodasLasTemperaturasAnio($llamaMatrizAutomatica, $anio);
                 } elseif ($opcion2Seleccionada) {
@@ -310,6 +340,14 @@
                 //Muestra para un mes determinado, las temperaturas de todos los años y el promedio
                 echo "Ingrese el mes: ";
                 $mes = strtolower(trim(fgets(STDIN))); // Convertir a minúsculas para consistencia
+                
+                do {
+                    echo "Ingrese el mes: ";
+                    $mes = strtolower(trim(fgets(STDIN))); // Convertir a minúsculas para consistencia
+                    if (!in_array($mes, ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"])) {
+                        echo "Se ingresó un mes incorrecto. Vuelva a intentarlo.\n";
+                    }
+                } while (!in_array($mes, ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]));
                 
                 if ($opcion1Seleccionada) {
                     mostrarTemperaturasPorMes($llamaMatrizAutomatica, $mes);
