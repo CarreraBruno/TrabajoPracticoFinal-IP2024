@@ -37,10 +37,9 @@
     //b) Realiza una carga manual de la matriz de temperaturas
     function cargaManual() {
         $matrizManual = [];
-        echo "Ingrese los valores de temperatura manualmente:\n";
-        for ($año = 0; $año < 10; $año++) {
-            $añoActual = 2014 + $año; // Año correspondiente
-            echo "  -> Año $añoActual:\n";
+        for ($anio = 0; $anio < 10; $anio++) {
+            $anioActual = 2014 + $anio; // Año correspondiente
+            echo "  -> Año $anioActual:\n";
             for ($mes = 0; $mes < 12; $mes++) {
                 $mesNombre = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
                 $esValido = false; // Bandera de validación
@@ -48,7 +47,7 @@
                     echo "      . Mes {$mesNombre[$mes]}: ";
                     $valTemperatura = trim(fgets(STDIN));
                     if (is_numeric($valTemperatura)) {
-                        $matrizManual[$añoActual][$mesNombre[$mes]] = (int)$valTemperatura;
+                        $matrizManual[$anioActual][$mesNombre[$mes]] = (int)$valTemperatura;
                         $esValido = true; // Se cambia la bandera si el valor es válido
                     } else {
                         echo "  Por favor, ingrese un valor numérico válido.\n";
@@ -267,6 +266,7 @@
 
             case 2: 
                 //Realizar una carga manual de la matriz de temperaturas
+                echo "Ingrese los valores de temperatura manualmente:\n";
                 $cargaMatrizManual=cargaManual();
                 $opcion2Seleccionada = true;
                 break;
@@ -287,10 +287,10 @@
                 do {
                     echo "Ingrese el año: ";
                         $anio = intval(trim(fgets(STDIN)));
-                        if ($anio < 2019 || $anio > 2023) {
+                        if ($anio < 2014 || $anio > 2023) {
                             echo "Se ingresó un año incorrecto. Vuelva a intentarlo.\n";
                         }
-                    } while ($anio < 2019 || $anio > 2023);
+                } while ($anio < 2014 || $anio > 2023);
                 
                 do {
                     echo "Ingrese el mes: ";
@@ -314,10 +314,10 @@
                 do {
                     echo "Ingrese el año: ";
                     $anio = intval(trim(fgets(STDIN)));
-                    if ($anio < 2019 || $anio > 2023) {
+                    if ($anio < 2014 || $anio > 2023) {
                         echo "Se ingresó un año incorrecto. Vuelva a intentarlo.\n";
                     }
-                } while ($anio < 2019 || $anio > 2023);
+                } while ($anio < 2014 || $anio > 2023);
 
                 if ($opcion1Seleccionada) {
                     mostrarTodasLasTemperaturasAnio($llamaMatrizAutomatica, $anio);
